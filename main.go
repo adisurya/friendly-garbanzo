@@ -1,14 +1,21 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/adisurya/friendly-garbanzo/request_handlers/events"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
+)
 
 func main() {
-	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "pong",
-		})
-	})
+	e := echo.New()
 
-	r.Run()
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Pre(middleware.RemoveTrailingSlash())
+
+	eventRoute := e.Group("/events")
+	eventRoute.GET("", events.Index)
+	eventRoute.POST("/create", events.Create)
+
+	e.Logger.Fatal(e.Start(":11300"))
 }
