@@ -14,10 +14,16 @@ func Create(c echo.Context) error {
 	if err := c.Bind(e); err != nil {
 		return err
 	}
-	println("request_handlers/events/create.go:Create(): " + e.EventTime)
-	id, err := events.Create(e)
-	if err != nil {
+
+	if err := c.Validate(e); err != nil {
 		return err
+	}
+
+	id, err := events.Create(e)
+	println("request_handlers/events/create.go:Create(): " + err.Error())
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
 	res := new(responses.ResponseId)
