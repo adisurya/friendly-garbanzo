@@ -20,7 +20,6 @@ func Create(c echo.Context) error {
 	}
 
 	id, err := events.Create(e)
-	println("request_handlers/events/create.go:Create(): " + err.Error())
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
