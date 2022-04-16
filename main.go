@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/adisurya/friendly-garbanzo/helpers"
-	"github.com/adisurya/friendly-garbanzo/request_handlers/bookings"
 	"github.com/adisurya/friendly-garbanzo/request_handlers/events"
+	"github.com/adisurya/friendly-garbanzo/request_handlers/tickets"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v4"
@@ -23,10 +23,10 @@ func main() {
 	eventRoute.GET("/:id", events.Detail)
 	eventRoute.POST("", events.Create)
 
-	bookingRoute := e.Group("/bookings")
+	ticketsRoute := e.Group("/tickets")
 	// bookingRoute.GET("", events.Index)
 	// bookingRoute.GET("/:id", events.Detail)
-	bookingRoute.POST("", bookings.Create)
+	ticketsRoute.POST("booking", tickets.Book)
 
 	e.Logger.Fatal(e.Start(":11300"))
 }

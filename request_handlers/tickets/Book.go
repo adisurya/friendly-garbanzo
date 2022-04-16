@@ -1,4 +1,4 @@
-package bookings
+package tickets
 
 import (
 	"net/http"
@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func Create(c echo.Context) error {
+func Book(c echo.Context) error {
 	b := new(requests.CreateBooking)
 	if err := c.Bind(b); err != nil {
 		return err
