@@ -18,6 +18,7 @@ func main() {
 	e.Validator = &helpers.CustomValidator{Validator: validator.New()}
 	eventRoute := e.Group("/events")
 	eventRoute.GET("", events.Index)
+	eventRoute.GET("/:id", events.Detail)
 	eventRoute.POST("/create", events.Create)
 
 	e.Logger.Fatal(e.Start(":11300"))

@@ -15,9 +15,9 @@ type EventList struct {
 	CreatedAt    time.Time `json:"created_at"`
 }
 
-func List() ([]Event, error) {
+func List() ([]EventDetail, error) {
 	db, err := database.Connect()
-	events := []Event{}
+	events := []EventDetail{}
 	if err != nil {
 		println("database/events/create.go:List(): " + err.Error())
 		return events, err
@@ -37,7 +37,7 @@ func List() ([]Event, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		evt := Event{}
+		evt := EventDetail{}
 		err = rows.Scan(&evt.Id, &evt.Name, &evt.EventTime, &evt.TotalTickets, &evt.TicketPrice, &evt.CreatedAt)
 		if err != nil {
 			println("database/events/create.go:List(): " + err.Error())
