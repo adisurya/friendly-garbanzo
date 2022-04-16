@@ -26,7 +26,8 @@ func main() {
 	ticketsRoute := e.Group("/tickets")
 	// bookingRoute.GET("", events.Index)
 	// bookingRoute.GET("/:id", events.Detail)
-	ticketsRoute.POST("booking", tickets.Book)
+	ticketsRoute.POST("/booking", tickets.Book)
+	ticketsRoute.GET("/inquiry/:id", tickets.Inquiry)
 
 	e.Logger.Fatal(e.Start(":11300"))
 }
