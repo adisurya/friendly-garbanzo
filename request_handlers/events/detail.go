@@ -14,7 +14,7 @@ func Detail(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	event, err := events.Detail(id)
+	event, err := events.Detail(int64(id))
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())

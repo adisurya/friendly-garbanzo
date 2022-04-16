@@ -17,7 +17,7 @@ type EventDetail struct {
 	CreatedAt     time.Time `json:"created_at"`
 }
 
-func Detail(id int) (EventDetail, error) {
+func Detail(id int64) (EventDetail, error) {
 	db, err := database.Connect()
 	detail := EventDetail{}
 
