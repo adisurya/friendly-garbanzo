@@ -6,7 +6,7 @@ import (
 	"github.com/adisurya/friendly-garbanzo/database"
 )
 
-type Event struct {
+type EventList struct {
 	Id           int       `json:"id"`
 	Name         string    `json:"name"`
 	EventTime    time.Time `json:"event_time"`
