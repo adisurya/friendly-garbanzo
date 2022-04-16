@@ -7,7 +7,7 @@ import (
 )
 
 func Connect() (*sql.DB, error) {
-	db, err := sql.Open("mysql", "root:1234@/garbanzo")
+	db, err := sql.Open("mysql", "root:1234@tcp(127.0.0.1:3306)/garbanzo?parseTime=true&loc=Asia%2FJakarta")
 
 	return db, err
 }
