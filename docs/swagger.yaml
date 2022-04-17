@@ -1,5 +1,24 @@
 basePath: /
 definitions:
+  events.EventDetail:
+    properties:
+      created_at:
+        type: string
+      event_time:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      ticket_booked:
+        type: integer
+      ticket_price:
+        type: string
+      ticket_remains:
+        type: integer
+      total_tickets:
+        type: integer
+    type: object
   events.EventList:
     properties:
       created_at:
@@ -54,6 +73,35 @@ paths:
           schema:
             $ref: '#/definitions/responses.MyError'
       summary: Get all events
+      tags:
+      - Events
+  /events/{id}:
+    get:
+      description: Get event detail
+      parameters:
+      - description: Event ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/events.EventDetail'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.MyError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.MyError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/responses.MyError'
+      summary: Get event detail
       tags:
       - Events
 swagger: "2.0"

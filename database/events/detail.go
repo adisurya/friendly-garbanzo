@@ -31,10 +31,9 @@ func Detail(id int64) (EventDetail, error) {
 	SELECT e.*,
 		SUM(case when t.booking_id IS NULL	THEN 0 ELSE 1 END) AS booked,
 		SUM(case when t.booking_id IS NULL	THEN 1 ELSE 0 END) AS remains
-
 	FROM events e
 	LEFT JOIN tickets t ON (e.id = t.event_id)
-	WHERE e.id = ?`, id)
+	WHERE e.id = ? GROUP BY e.id`, id)
 	err = row.Scan(&detail.Id, &detail.Name, &detail.EventTime, &detail.TotalTickets, &detail.TicketPrice, &detail.CreatedAt, &detail.TicketBooked, &detail.TicketRemains)
 	if err != nil {
 		println("database/events/create.go:Detail(): " + err.Error())
