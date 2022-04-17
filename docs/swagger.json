@@ -60,8 +60,8 @@
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "Created",
                         "schema": {
                             "$ref": "#/definitions/responses.ResponseId"
                         }
@@ -150,10 +150,54 @@
                     }
                 ],
                 "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/bookings.CreateBookingResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    }
+                }
+            }
+        },
+        "/tickets/{id}": {
+            "get": {
+                "description": "Ticket detail",
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Ticket detail",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Ticket ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/bookings.CreateBookingResponse"
+                            "$ref": "#/definitions/tickets.TicketDetailStruct"
                         }
                     },
                     "400": {
@@ -314,6 +358,41 @@
             "properties": {
                 "id": {
                     "type": "integer"
+                }
+            }
+        },
+        "tickets.TicketDetailStruct": {
+            "type": "object",
+            "properties": {
+                "booking_id": {
+                    "type": "integer"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "event_id": {
+                    "type": "integer"
+                },
+                "event_name": {
+                    "type": "string"
+                },
+                "event_time": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "is_paid": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "ticket_price": {
+                    "type": "string"
+                },
+                "valid_until": {
+                    "type": "string"
                 }
             }
         }

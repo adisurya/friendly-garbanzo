@@ -91,6 +91,29 @@ definitions:
       id:
         type: integer
     type: object
+  tickets.TicketDetailStruct:
+    properties:
+      booking_id:
+        type: integer
+      created_at:
+        type: string
+      event_id:
+        type: integer
+      event_name:
+        type: string
+      event_time:
+        type: string
+      id:
+        type: integer
+      is_paid:
+        type: integer
+      name:
+        type: string
+      ticket_price:
+        type: string
+      valid_until:
+        type: string
+    type: object
 host: localhost:11300
 info:
   contact: {}
@@ -130,8 +153,8 @@ paths:
         schema:
           $ref: '#/definitions/requests.CreateEvent'
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           schema:
             $ref: '#/definitions/responses.ResponseId'
         "400":
@@ -178,6 +201,35 @@ paths:
       summary: Get event detail
       tags:
       - Events
+  /tickets/{id}:
+    get:
+      description: Ticket detail
+      parameters:
+      - description: Ticket ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/tickets.TicketDetailStruct'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.MyError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.MyError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/responses.MyError'
+      summary: Ticket detail
+      tags:
+      - Tickets
   /tickets/booking:
     post:
       description: Booking tickets for an event
@@ -189,8 +241,8 @@ paths:
         schema:
           $ref: '#/definitions/requests.CreateBooking'
       responses:
-        "200":
-          description: OK
+        "201":
+          description: Created
           schema:
             $ref: '#/definitions/bookings.CreateBookingResponse'
         "400":
