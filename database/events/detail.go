@@ -27,11 +27,6 @@ func Detail(id int64) (EventDetail, error) {
 	}
 	defer db.Close()
 
-	if err != nil {
-		println("database/events/create.go:Detail(): " + err.Error())
-		return detail, err
-	}
-
 	row := db.QueryRow(`
 	SELECT e.*,
 		SUM(case when t.booking_id IS NULL	THEN 0 ELSE 1 END) AS booked,

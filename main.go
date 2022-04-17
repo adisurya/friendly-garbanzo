@@ -25,7 +25,7 @@ func main() {
 
 	ticketsRoute := e.Group("/tickets")
 	// bookingRoute.GET("", events.Index)
-	// bookingRoute.GET("/:id", events.Detail)
+	ticketsRoute.GET("/:id", tickets.Detail)
 	ticketsRoute.POST("/booking", tickets.Book)
 	ticketsRoute.GET("/inquiry/:id", tickets.Inquiry)
 	ticketsRoute.POST("/payment", tickets.Payment)
