@@ -1,5 +1,7 @@
 package responses
 
+import "github.com/adisurya/friendly-garbanzo/database/events"
+
 type EventList struct {
-	Events interface{} `json:"events"`
+	Events []events.EventList `json:"events"`
 }

@@ -1,0 +1,91 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Ticket booking API documentation",
+        "contact": {},
+        "version": "0.1.0"
+    },
+    "host": "localhost:11300",
+    "basePath": "/",
+    "paths": {
+        "/events": {
+            "get": {
+                "description": "Get all events",
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Get all events",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.EventList"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "events.EventList": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "event_time": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "ticket_price": {
+                    "type": "string"
+                },
+                "total_tickets": {
+                    "type": "integer"
+                }
+            }
+        },
+        "responses.EventList": {
+            "type": "object",
+            "properties": {
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/events.EventList"
+                    }
+                }
+            }
+        },
+        "responses.MyError": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
