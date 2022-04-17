@@ -28,6 +28,7 @@ func main() {
 	// bookingRoute.GET("/:id", events.Detail)
 	ticketsRoute.POST("/booking", tickets.Book)
 	ticketsRoute.GET("/inquiry/:id", tickets.Inquiry)
+	ticketsRoute.POST("/payment", tickets.Payment)
 
 	e.Logger.Fatal(e.Start(":11300"))
 }

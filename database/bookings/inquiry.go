@@ -51,3 +51,35 @@ func Inquiry(id int64) (BookingInquiry, error) {
 
 	return inquiry, nil
 }
+
+func Detail(id int64) (BookingInquiry, error) {
+	db, err := database.Connect()
+	inquiry := BookingInquiry{}
+
+	if err != nil {
+		println("database/bookings/inquiry.go:Inquiry(): " + err.Error())
+		return inquiry, err
+	}
+	defer db.Close()
+
+	if err != nil {
+		println("database/bookings/inquiry.go:Inquiry(): " + err.Error())
+		return inquiry, err
+	}
+
+	row := db.QueryRow(`SELECT b.*,
+		e.name AS event_name , e.event_time
+		FROM bookings b
+		INNER JOIN events e ON(b.event_id = e.id)
+		WHERE b.id = ?`, id)
+	err = row.Scan(
+		&inquiry.Id, &inquiry.Name, &inquiry.EventId, &inquiry.TotalBooked,
+		&inquiry.TicketPrice, &inquiry.TotalPrice, &inquiry.ValidUntil,
+		&inquiry.IsPaid, &inquiry.CreatedAt, &inquiry.EventName, &inquiry.EventTime)
+	if err != nil {
+		println("database/bookings/inquiry.go:Inquiry(): " + err.Error())
+		return inquiry, err
+	}
+
+	return inquiry, nil
+}
