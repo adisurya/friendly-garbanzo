@@ -49,6 +49,50 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "post": {
+                "description": "Create event",
+                "tags": [
+                    "Events"
+                ],
+                "summary": "Create event",
+                "parameters": [
+                    {
+                        "description": "Event Data",
+                        "name": "event",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.CreateEvent"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.ResponseId"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    }
+                }
             }
         },
         "/events/{id}": {
@@ -149,6 +193,29 @@ const docTemplate = `{
                 }
             }
         },
+        "requests.CreateEvent": {
+            "type": "object",
+            "required": [
+                "event_time",
+                "name",
+                "ticket_price",
+                "total_tickets"
+            ],
+            "properties": {
+                "event_time": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "ticket_price": {
+                    "type": "integer"
+                },
+                "total_tickets": {
+                    "type": "integer"
+                }
+            }
+        },
         "responses.EventList": {
             "type": "object",
             "properties": {
@@ -165,6 +232,14 @@ const docTemplate = `{
             "properties": {
                 "message": {
                     "type": "string"
+                }
+            }
+        },
+        "responses.ResponseId": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
                 }
             }
         }

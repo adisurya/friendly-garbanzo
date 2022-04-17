@@ -34,6 +34,22 @@ definitions:
       total_tickets:
         type: integer
     type: object
+  requests.CreateEvent:
+    properties:
+      event_time:
+        type: string
+      name:
+        type: string
+      ticket_price:
+        type: integer
+      total_tickets:
+        type: integer
+    required:
+    - event_time
+    - name
+    - ticket_price
+    - total_tickets
+    type: object
   responses.EventList:
     properties:
       events:
@@ -45,6 +61,11 @@ definitions:
     properties:
       message:
         type: string
+    type: object
+  responses.ResponseId:
+    properties:
+      id:
+        type: integer
     type: object
 host: localhost:11300
 info:
@@ -73,6 +94,35 @@ paths:
           schema:
             $ref: '#/definitions/responses.MyError'
       summary: Get all events
+      tags:
+      - Events
+    post:
+      description: Create event
+      parameters:
+      - description: Event Data
+        in: body
+        name: event
+        required: true
+        schema:
+          $ref: '#/definitions/requests.CreateEvent'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.ResponseId'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.MyError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.MyError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/responses.MyError'
+      summary: Create event
       tags:
       - Events
   /events/{id}:
