@@ -1,11 +1,14 @@
 package main
 
 import (
+	"log"
+	"os"
+
 	"github.com/adisurya/friendly-garbanzo/helpers"
 	"github.com/adisurya/friendly-garbanzo/request_handlers/events"
 	"github.com/adisurya/friendly-garbanzo/request_handlers/tickets"
-
 	"github.com/go-playground/validator/v10"
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
@@ -19,6 +22,10 @@ import (
 // @host localhost:11300
 // @BasePath /
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	e := echo.New()
 
 	e.Use(middleware.Logger())
@@ -40,5 +47,5 @@ func main() {
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
-	e.Logger.Fatal(e.Start(":11300"))
+	e.Logger.Fatal(e.Start(":" + os.Getenv("PORT")))
 }
