@@ -36,6 +36,15 @@ definitions:
       valid_until:
         type: string
     type: object
+  bookings.PaymentResponse:
+    properties:
+      booking:
+        $ref: '#/definitions/bookings.BookingInquiry'
+      tickets:
+        items:
+          $ref: '#/definitions/tickets.ListTicketIdByBookingIdResponse'
+        type: array
+    type: object
   events.EventDetail:
     properties:
       created_at:
@@ -99,6 +108,16 @@ definitions:
     - ticket_price
     - total_tickets
     type: object
+  requests.CreatePayment:
+    properties:
+      booking_id:
+        type: integer
+      total:
+        type: string
+    required:
+    - booking_id
+    - total
+    type: object
   responses.EventList:
     properties:
       events:
@@ -112,6 +131,11 @@ definitions:
         type: string
     type: object
   responses.ResponseId:
+    properties:
+      id:
+        type: integer
+    type: object
+  tickets.ListTicketIdByBookingIdResponse:
     properties:
       id:
         type: integer
@@ -261,7 +285,7 @@ paths:
       parameters:
       - description: Booking Data
         in: body
-        name: event
+        name: booking
         required: true
         schema:
           $ref: '#/definitions/requests.CreateBooking'
@@ -312,6 +336,36 @@ paths:
           schema:
             $ref: '#/definitions/responses.MyError'
       summary: Inquiry booking data
+      tags:
+      - Tickets
+  /tickets/payment:
+    post:
+      description: Payment for ticket booking
+      parameters:
+      - description: Payment Data
+        in: body
+        name: payment
+        required: true
+        schema:
+          $ref: '#/definitions/requests.CreatePayment'
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/bookings.PaymentResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.MyError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.MyError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/responses.MyError'
+      summary: Payment for ticket booking
       tags:
       - Tickets
 swagger: "2.0"

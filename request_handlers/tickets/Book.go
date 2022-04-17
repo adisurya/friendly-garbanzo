@@ -12,7 +12,7 @@ import (
 // @Summary Booking tickets for an event
 // @Description Booking tickets for an event
 // @Tags Tickets
-// @param event body requests.CreateBooking true "Booking Data"
+// @param booking body requests.CreateBooking true "Booking Data"
 // @Success 201 {object} bookings.CreateBookingResponse
 // @Failure 404,400,500 {object} responses.MyError
 // @Router /tickets/booking [post]

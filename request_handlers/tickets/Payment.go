@@ -11,6 +11,14 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// Payment ... Payment for ticket booking
+// @Summary Payment for ticket booking
+// @Description Payment for ticket booking
+// @Tags Tickets
+// @param payment body requests.CreatePayment true "Payment Data"
+// @Success 201 {object} bookings.PaymentResponse
+// @Failure 404,400,500 {object} responses.MyError
+// @Router /tickets/payment [post]
 func Payment(c echo.Context) error {
 	p := new(requests.CreatePayment)
 

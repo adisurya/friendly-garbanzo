@@ -149,7 +149,7 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "description": "Booking Data",
-                        "name": "event",
+                        "name": "booking",
                         "in": "body",
                         "required": true,
                         "schema": {
@@ -206,6 +206,52 @@ const docTemplate = `{
                         "description": "OK",
                         "schema": {
                             "$ref": "#/definitions/bookings.BookingInquiry"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    }
+                }
+            }
+        },
+        "/tickets/payment": {
+            "post": {
+                "description": "Payment for ticket booking",
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Payment for ticket booking",
+                "parameters": [
+                    {
+                        "description": "Payment Data",
+                        "name": "payment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.CreatePayment"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/bookings.PaymentResponse"
                         }
                     },
                     "400": {
@@ -330,6 +376,20 @@ const docTemplate = `{
                 }
             }
         },
+        "bookings.PaymentResponse": {
+            "type": "object",
+            "properties": {
+                "booking": {
+                    "$ref": "#/definitions/bookings.BookingInquiry"
+                },
+                "tickets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/tickets.ListTicketIdByBookingIdResponse"
+                    }
+                }
+            }
+        },
         "events.EventDetail": {
             "type": "object",
             "properties": {
@@ -424,6 +484,21 @@ const docTemplate = `{
                 }
             }
         },
+        "requests.CreatePayment": {
+            "type": "object",
+            "required": [
+                "booking_id",
+                "total"
+            ],
+            "properties": {
+                "booking_id": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "string"
+                }
+            }
+        },
         "responses.EventList": {
             "type": "object",
             "properties": {
@@ -444,6 +519,14 @@ const docTemplate = `{
             }
         },
         "responses.ResponseId": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "tickets.ListTicketIdByBookingIdResponse": {
             "type": "object",
             "properties": {
                 "id": {
