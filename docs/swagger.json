@@ -130,9 +130,72 @@
                     }
                 }
             }
+        },
+        "/tickets/booking": {
+            "post": {
+                "description": "Booking tickets for an event",
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Booking tickets for an event",
+                "parameters": [
+                    {
+                        "description": "Booking Data",
+                        "name": "event",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/requests.CreateBooking"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/bookings.CreateBookingResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
+        "bookings.CreateBookingResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "total_payment": {
+                    "type": "integer"
+                },
+                "total_ticket": {
+                    "type": "integer"
+                },
+                "valid_until": {
+                    "type": "string"
+                }
+            }
+        },
         "events.EventDetail": {
             "type": "object",
             "properties": {
@@ -181,6 +244,25 @@
                     "type": "string"
                 },
                 "total_tickets": {
+                    "type": "integer"
+                }
+            }
+        },
+        "requests.CreateBooking": {
+            "type": "object",
+            "required": [
+                "event_id",
+                "name",
+                "total"
+            ],
+            "properties": {
+                "event_id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "total": {
                     "type": "integer"
                 }
             }
