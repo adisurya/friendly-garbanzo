@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"errors"
 	"net/http"
+	"time"
 
 	"github.com/adisurya/friendly-garbanzo/database/bookings"
 	"github.com/adisurya/friendly-garbanzo/structs/requests"
@@ -33,6 +34,13 @@ func Payment(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, errors.New("Payment value does not match").Error())
 
 	}
+
+	now := time.Now()
+	if inquiryResponse.ValidUntil.Before(now) {
+		return echo.NewHTTPError(http.StatusBadRequest, errors.New("Expired booking id").Error())
+
+	}
+
 	paymentResponse, err := bookings.Payment(p.BookingId)
 
 	if err != nil {
