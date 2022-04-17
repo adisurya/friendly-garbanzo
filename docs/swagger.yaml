@@ -1,5 +1,30 @@
 basePath: /
 definitions:
+  bookings.BookingInquiry:
+    properties:
+      created_at:
+        type: string
+      event_id:
+        type: integer
+      event_name:
+        type: string
+      event_time:
+        type: string
+      id:
+        type: integer
+      is_paid:
+        type: integer
+      name:
+        type: string
+      ticket_price:
+        type: string
+      total_booked:
+        type: integer
+      total_price:
+        type: string
+      valid_until:
+        type: string
+    type: object
   bookings.CreateBookingResponse:
     properties:
       id:
@@ -258,6 +283,35 @@ paths:
           schema:
             $ref: '#/definitions/responses.MyError'
       summary: Booking tickets for an event
+      tags:
+      - Tickets
+  /tickets/inquiry/{id}:
+    get:
+      description: Inquiry booking data
+      parameters:
+      - description: Booking ID
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/bookings.BookingInquiry'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/responses.MyError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/responses.MyError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/responses.MyError'
+      summary: Inquiry booking data
       tags:
       - Tickets
 swagger: "2.0"

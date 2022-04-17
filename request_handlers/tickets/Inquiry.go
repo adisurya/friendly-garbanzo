@@ -10,6 +10,14 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// Inquiry ... Inquiry booking data
+// @Summary Inquiry booking data
+// @Description Inquiry booking data
+// @Tags Tickets
+// @param id path string true "Booking ID"
+// @Success 200 {object} bookings.BookingInquiry
+// @Failure 404,400,500 {object} responses.MyError
+// @Router /tickets/inquiry/{id} [get]
 func Inquiry(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 

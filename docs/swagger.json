@@ -177,6 +177,50 @@
                 }
             }
         },
+        "/tickets/inquiry/{id}": {
+            "get": {
+                "description": "Inquiry booking data",
+                "tags": [
+                    "Tickets"
+                ],
+                "summary": "Inquiry booking data",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Booking ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/bookings.BookingInquiry"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/responses.MyError"
+                        }
+                    }
+                }
+            }
+        },
         "/tickets/{id}": {
             "get": {
                 "description": "Ticket detail",
@@ -223,6 +267,44 @@
         }
     },
     "definitions": {
+        "bookings.BookingInquiry": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "event_id": {
+                    "type": "integer"
+                },
+                "event_name": {
+                    "type": "string"
+                },
+                "event_time": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "is_paid": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "ticket_price": {
+                    "type": "string"
+                },
+                "total_booked": {
+                    "type": "integer"
+                },
+                "total_price": {
+                    "type": "string"
+                },
+                "valid_until": {
+                    "type": "string"
+                }
+            }
+        },
         "bookings.CreateBookingResponse": {
             "type": "object",
             "properties": {
