@@ -19,9 +19,9 @@
 -- Current Database: `garbanzo`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `garbanzo2` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `garbanzo` /*!40100 DEFAULT CHARACTER SET latin1 */;
 
-USE `garbanzo2`;
+USE `garbanzo`;
 
 --
 -- Table structure for table `bookings`
