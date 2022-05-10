@@ -30,3 +30,5 @@ untuk pembayaran ticket
 Untuk dokumentasi lebih detail dapat diakses di http://localhost:11300/swagger/index.html setelah aplikasi dibuild dan di jalankan
 
 Untuk config di simpan di file .env contohnya bisa di lihat di .env.example
+
+Untuk struktur table ada di folder sql
